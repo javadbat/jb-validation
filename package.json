@@ -1,0 +1,36 @@
+{
+  "name": "jb-validation",
+  "description": "validation module",
+  "author": {
+		"name": "mohammad javad bathaei",
+		"email": "javadbat@gmail.com"
+	},
+  "keywords": [
+    "jb",
+    "jb-validation",
+    "validation",
+    "validation helper"
+  ],
+  "version": "0.0.1",
+  "bugs": "https://github.com/javadbat/jb-validation/issues",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib/",
+    "dist/"
+  ],
+  "main": "index.js",
+  "type": "module",
+  "types": "./dist/modules/jb-validation/lib/jb-validation.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": ["./dist/modules/jb-validation/lib/jb-validation.d.ts"],
+      "types":["./dist/modules/jb-validation/lib/types.d.ts"]
+    }
+  },
+  "repository": {
+		"type": "git",
+		"url": "git@github.com:javadbat/jb-validation.git"
+  }
+}
