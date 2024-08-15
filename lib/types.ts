@@ -2,6 +2,7 @@ import { type ValidationHelper } from "./validation-helper";
 
 //all web component that has validation will implements this interface
 export interface WithValidation<TValidationValue = any> {
+    readonly isAutoValidationDisabled:boolean,
     readonly validation :ValidationHelper<TValidationValue>,
     showValidationError:ShowValidationErrorCallback,
     clearValidationError:ClearValidationErrorCallback,
