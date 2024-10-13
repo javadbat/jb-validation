@@ -1,4 +1,4 @@
-import {ClearValidationErrorCallback, GetInputtedValueCallback, ShowValidationErrorCallback, ValidationItem,ValidationResult,ValidationResultItem,ValidationResultSummary, GetValueStringCallback,GetInsideValidationsCallback} from "./types";
+import {ClearValidationErrorCallback, GetInputtedValueCallback, ShowValidationErrorCallback, ValidationItem,ValidationResult,ValidationResultItem,ValidationResultSummary, GetValueStringCallback,GetInsideValidationsCallback, SetValidationResultCallback} from "./types";
 
 export class ValidationHelper<ValidationValue>{
   //states
@@ -17,12 +17,14 @@ export class ValidationHelper<ValidationValue>{
   #getInputValue:GetInputtedValueCallback<ValidationValue> | null = null;
   #getValueString:GetValueStringCallback<ValidationValue> | null = null;
   #getInsideValidations:GetInsideValidationsCallback<ValidationValue>[] = [];
-  constructor(showValidationError:ShowValidationErrorCallback, clearValidationError: ClearValidationErrorCallback, getInputValue:GetInputtedValueCallback<ValidationValue>, getValueString:GetValueStringCallback<ValidationValue>,getInsideValidations:GetInsideValidationsCallback<ValidationValue> ) {
+  #setValidationResult:SetValidationResultCallback<ValidationValue> | null = null;
+  constructor(showValidationError:ShowValidationErrorCallback, clearValidationError: ClearValidationErrorCallback, getInputValue:GetInputtedValueCallback<ValidationValue>, getValueString:GetValueStringCallback<ValidationValue>,getInsideValidations:GetInsideValidationsCallback<ValidationValue>,setValidationResult:SetValidationResultCallback<ValidationValue> ) {
     this.#showValidationError = showValidationError;
     this.#clearValidationError= clearValidationError;
     this.#getInputValue = getInputValue;
     this.#getValueString = getValueString;
     this.#getInsideValidations.push(getInsideValidations);
+    this.#setValidationResult = this.#setValidationResult;
   }
   get list(): ValidationItem<ValidationValue>[] {
     return this.#list;

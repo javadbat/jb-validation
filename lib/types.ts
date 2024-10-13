@@ -6,6 +6,8 @@ export interface WithValidation<TValidationValue = any> {
     readonly validation :ValidationHelper<TValidationValue>,
     showValidationError:ShowValidationErrorCallback,
     clearValidationError:ClearValidationErrorCallback,
+    checkValidity:()=>boolean
+    reportValidity:()=>boolean
 }
 
 export type ValidationResultSummary = {
@@ -25,9 +27,11 @@ export type ValidationResult<ValidationValue> = {
 export type ValidationItem<ValidationValue> = {
     validator: RegExp | ((value:ValidationValue)=>boolean|string);
     message:string;
+    stateType?: keyof ValidityStateFlags
 }
 export type ShowValidationErrorCallback = (message:string)=>void;
 export type ClearValidationErrorCallback = ()=>void;
 export type GetInputtedValueCallback<ValidationValue> = ()=>ValidationValue;
 export type GetValueStringCallback<ValidationValue> = (value:ValidationValue)=>string;
 export type GetInsideValidationsCallback<ValidationValue> = ()=>ValidationItem<ValidationValue>[];
+export type SetValidationResultCallback<ValidationValue> = ()=>ValidationResult<ValidationValue>[];
