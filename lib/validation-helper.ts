@@ -24,7 +24,7 @@ export class ValidationHelper<ValidationValue>{
     this.#getInputValue = getInputValue;
     this.#getValueString = getValueString;
     this.#getInsideValidations.push(getInsideValidations);
-    this.#setValidationResult = this.#setValidationResult;
+    this.#setValidationResult = setValidationResult;
   }
   get list(): ValidationItem<ValidationValue>[] {
     return this.#list;
@@ -57,6 +57,8 @@ export class ValidationHelper<ValidationValue>{
       this.#clearValidationError();
     }
     this.result = validationResult;
+    //set result for 
+    this.#setValidationResult(validationResult);
     return validationResult;
   }
   /**

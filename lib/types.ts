@@ -4,6 +4,8 @@ import { type ValidationHelper } from "./validation-helper";
 export interface WithValidation<TValidationValue = any> {
     readonly isAutoValidationDisabled:boolean,
     readonly validation :ValidationHelper<TValidationValue>,
+    required:boolean,
+    validationMessage:string
     showValidationError:ShowValidationErrorCallback,
     clearValidationError:ClearValidationErrorCallback,
     checkValidity:()=>boolean
@@ -34,4 +36,4 @@ export type ClearValidationErrorCallback = ()=>void;
 export type GetInputtedValueCallback<ValidationValue> = ()=>ValidationValue;
 export type GetValueStringCallback<ValidationValue> = (value:ValidationValue)=>string;
 export type GetInsideValidationsCallback<ValidationValue> = ()=>ValidationItem<ValidationValue>[];
-export type SetValidationResultCallback<ValidationValue> = ()=>ValidationResult<ValidationValue>[];
+export type SetValidationResultCallback<ValidationValue> = (result:ValidationResult<ValidationValue>)=>void;
