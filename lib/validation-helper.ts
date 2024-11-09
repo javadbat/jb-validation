@@ -35,11 +35,13 @@ export class ValidationHelper<ValidationValue>{
   }
   /**
    * @description check if input validation list is fulfilled or not
+   * @param showError determine if you want to show error in invalidate state or not
+   * @param value the value you want to check validation on its optional and if not set it will get from component value)
    */
-  checkValidity(showError = true): ValidationResult<ValidationValue> {
+  checkValidity(showError = true, value:ValidationValue = null): ValidationResult<ValidationValue> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
-    const inputValue = this.#getInputValue();
+    const inputValue = value || this.#getInputValue();
     const validationResult = this.#checkValueValidation(inputValue);
     this.#resultSummary = {
       isValid: validationResult.isAllValid,
