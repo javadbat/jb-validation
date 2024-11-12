@@ -23,12 +23,6 @@
   "main": "index.js",
   "type": "module",
   "types": "./dist/modules/jb-validation/lib/jb-validation.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": ["./dist/modules/jb-validation/lib/jb-validation.d.ts"],
-      "types":["./dist/modules/jb-validation/lib/types.d.ts"]
-    }
-  },
   "repository": {
 		"type": "git",
 		"url": "git@github.com:javadbat/jb-validation.git"
