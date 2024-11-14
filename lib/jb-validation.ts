@@ -1,1 +1,2 @@
-export {ValidationHelper} from './validation-helper';
+export * from './validation-helper.js';
+export * from './types.js';
