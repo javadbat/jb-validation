@@ -1,1 +1,1 @@
-export * from './dist/jb-validation';
+export * from './dist/jb-validation.js';
