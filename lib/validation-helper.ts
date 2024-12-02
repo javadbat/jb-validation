@@ -52,10 +52,10 @@ export class ValidationHelper<ValidationValue> {
   /**
    * @description check if input validation list is fulfilled or not
    */
-  async checkValidity(input: checkValidityInput<ValidationValue>): Promise<ValidationResult<ValidationValue>> {
+  async checkValidity(input?: checkValidityInput<ValidationValue>): Promise<ValidationResult<ValidationValue>> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
-    const inputValue = input.value || await Promise.resolve(this.#callbacks.getInputtedValue());
+    const inputValue = input?.value || await Promise.resolve(this.#callbacks.getInputtedValue());
     const validationResult = await this.#checkValueValidation(inputValue);
     this.#doCheckValidationAction(validationResult,input);
     return validationResult;
@@ -63,15 +63,15 @@ export class ValidationHelper<ValidationValue> {
   /**
  * @description check if input validation list is fulfilled or not but will ignore async validations callbacks.
  */
-  checkValiditySync(input: checkValidityInput<ValidationValue>): ValidationResult<ValidationValue> {
+  checkValiditySync(input?: checkValidityInput<ValidationValue>): ValidationResult<ValidationValue> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
-    const inputValue = input.value || this.#callbacks.getInputtedValue() as ValidationValue;
+    const inputValue = input?.value || this.#callbacks.getInputtedValue() as ValidationValue;
     const validationResult = this.#checkValueValidationSync(inputValue);
     this.#doCheckValidationAction(validationResult,input);
     return validationResult;
   }
-  #doCheckValidationAction(validationResult: ValidationResult<ValidationValue>, input: checkValidityInput<ValidationValue>) {
+  #doCheckValidationAction(validationResult: ValidationResult<ValidationValue>, input?: checkValidityInput<ValidationValue>) {
     this.#resultSummary = {
       isValid: validationResult.isAllValid,
       message: null,
@@ -81,7 +81,7 @@ export class ValidationHelper<ValidationValue> {
         (x) => !x.isValid
       )!;
       this.resultSummary.message = firstFault.message;
-      if (input.showError !== false) {
+      if (input?.showError !== false) {
         this.#callbacks.showValidationError.forEach(fn => fn({ message: firstFault.message! }));
       }
     } else {
