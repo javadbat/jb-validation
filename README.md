@@ -19,13 +19,34 @@ validation web-components and framework components with zero effort.
 ```bash
 npm install jb-validation
 ```
+## Architecture
+
+jb-validation is a universal validation module that let you simplify validations process.   
+to achieve our goal we make jb-validation **Async** first mean checkValidation return `Promise` by default, despite all your validations were sync or not.  
+in `90%` of front-end use cases we just need sync Validation in our component or in our apps so we recommend you to use sync methods for your default useCases in front-end components and add some async methods beside them for more complex use cases. but in other scenario like web-services and etc please use `Async` first approach.    
+
+here we have `ValidationHelper` class that is a base class of our validation system. in every component or module that want to implement jb-validation first we have to create a instance of `ValidationHelper` class and then infract with it.
+this document have 2 sections:
+1. how to interact with already implemented module inside any component.
+2. how to implement jb-validation in a new component.
+
+before we start to see how to use validations methods we must get familiar with some types in jb-validation:
+### validator:
+a regex or function that test value and return `true/false` or `string` or `Promise<boolean 
+| >`.
+### ValidationItem:
+single validation item with validator AND A  default error message in case of invalidity and other meta data like validation type & defer.
+### ValidationList:
+list of validation Item to validate your value with. if value pass all the list validators it's considered as a valid value.
+### ValidationValue
+validation value is the value you need for your validator functions parameter. it's may be the same with component value or it may be different with it. for example in jb-date-input value is date ISO string like `2024-05-11` but in our validator we need more data to validate the date like `Date` object so we define it in our `ValidationValue` type.   
 
 ## getting started
 
 in every web-component that support jb-validation as a validation method you
 must follow 3 step 1- provide a validation list(contain validator and message)\
 2- call check validation method\
-3- check the result\
+3- check the result
 its easy and straight forward like the example:
 
 ```js
@@ -37,12 +58,13 @@ component.validation.list = [
 ];
 //check validity and get the result
 //sync result will ignore async validator or async value
-const result = component.validation.checkValiditySync(true);
+const result = component.validation.checkValiditySync({showError:true});
 //async validator that also support async validation getter and async validator function. will return promise
-const asyncResult = component.validation.checkValidity(true);
+const asyncResult = component.validation.checkValidity({showError:true});
 //do whatever you want with the result
 console.log("isInputValid:", result.isAllValid);
-console.log("isInputValid:", await(asyncResult).isAllValid);
+asyncResult.then((asyncResultData)=>{console.log("isInputValid:", asyncResultData.isAllValid);})
+
 ```
 
 ## providing validation
