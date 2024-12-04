@@ -1,4 +1,4 @@
-import { ValidationItem, ValidationResult, ValidationResultSummary, GetInsideValidationsCallback, Callbacks, CallbacksInput, checkValidityInput } from "./types";
+import { ValidationItem, ValidationResult, ValidationResultSummary, GetValidationsCallback, Callbacks, CallbacksInput, checkValidityInput } from "./types";
 import { checkValueValidationSync, checkValueValidationAsync } from "./utils.js";
 
 export class ValidationHelper<ValidationValue> {
@@ -14,8 +14,8 @@ export class ValidationHelper<ValidationValue> {
   result: ValidationResult<ValidationValue> | null = null;
   #callbacks: Callbacks<ValidationValue> = {
     clearValidationError: [],
-    getInputtedValue: () => null,
-    getInsideValidations: [],
+    getValue: () => null,
+    getValidations: [],
     getValueString: () => "",
     setValidationResult: [],
     showValidationError: [],
@@ -55,7 +55,7 @@ export class ValidationHelper<ValidationValue> {
   async checkValidity(input?: checkValidityInput<ValidationValue>): Promise<ValidationResult<ValidationValue>> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
-    const inputValue = input?.value || await Promise.resolve(this.#callbacks.getInputtedValue());
+    const inputValue = input?.value || await Promise.resolve(this.#callbacks.getValue());
     const validationResult = await this.#checkValueValidation(inputValue);
     this.#doCheckValidationAction(validationResult,input);
     return validationResult;
@@ -66,7 +66,7 @@ export class ValidationHelper<ValidationValue> {
   checkValiditySync(input?: checkValidityInput<ValidationValue>): ValidationResult<ValidationValue> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
-    const inputValue = input?.value || this.#callbacks.getInputtedValue() as ValidationValue;
+    const inputValue = input?.value || this.#callbacks.getValue() as ValidationValue;
     const validationResult = this.#checkValueValidationSync(inputValue);
     this.#doCheckValidationAction(validationResult,input);
     return validationResult;
@@ -96,12 +96,12 @@ export class ValidationHelper<ValidationValue> {
    * @description this function will register a function as validation getter sp on each validation check it will call getter function and check it's returned validation
    * @public
    */
-  addValidationListGetter(func: GetInsideValidationsCallback<ValidationValue>) {
-    this.#callbacks.getInsideValidations.push(func);
+  addValidationListGetter(func: GetValidationsCallback<ValidationValue>) {
+    this.#callbacks.getValidations.push(func);
   }
   #getInsideValidationList() {
     const insideValidations: ValidationItem<ValidationValue>[] = [];
-    this.#callbacks.getInsideValidations.forEach((getValidation) => {
+    this.#callbacks.getValidations.forEach((getValidation) => {
       if (typeof getValidation == "function") {
         insideValidations.push(...getValidation());
       }

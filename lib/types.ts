@@ -6,7 +6,7 @@ export interface WithValidation<TValidationValue = any> {
     readonly validation: ValidationHelper<TValidationValue>,
     required: boolean,
     validationMessage: string
-    showValidationError: ShowValidationErrorCallback,
+    showValidationError: ShowValidationErrorCallback | ((error: string) => void),
     clearValidationError: ClearValidationErrorCallback,
     checkValidity: () => boolean
     reportValidity: () => boolean
@@ -58,19 +58,19 @@ export type checkValidityInput<ValidationValue> = {
 //callbacks
 export type ShowValidationErrorInput = { message: string }
 //
-export type ShowValidationErrorCallback = (error: ShowValidationErrorInput | string) => void;
+export type ShowValidationErrorCallback = (error: ShowValidationErrorInput) => void;
 export type ClearValidationErrorCallback = () => void;
-export type GetInputtedValueCallback<ValidationValue> = () => (ValidationValue | Promise<ValidationValue>);
+export type GetValueCallback<ValidationValue> = () => (ValidationValue | Promise<ValidationValue>);
 export type GetValueStringCallback<ValidationValue> = (value: ValidationValue) => string;
-export type GetInsideValidationsCallback<ValidationValue> = () => ValidationItem<ValidationValue>[];
+export type GetValidationsCallback<ValidationValue> = () => ValidationItem<ValidationValue>[];
 export type SetValidationResultCallback<ValidationValue> = (result: ValidationResult<ValidationValue>) => void;
 //
 export type Callbacks<ValidationValue> = {
-    getInputtedValue: GetInputtedValueCallback<ValidationValue>,
+    getValue: GetValueCallback<ValidationValue>,
     getValueString: GetValueStringCallback<ValidationValue>,
     showValidationError: ShowValidationErrorCallback[],
     clearValidationError: ClearValidationErrorCallback[],
-    getInsideValidations: GetInsideValidationsCallback<ValidationValue>[],
+    getValidations: GetValidationsCallback<ValidationValue>[],
     setValidationResult: SetValidationResultCallback<ValidationValue>[]
 }
 export type CallbacksInput<ValidationValue> = {

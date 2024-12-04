@@ -11,7 +11,7 @@
     "validation",
     "validation helper"
   ],
-  "version": "0.1.1",
+  "version": "0.2.0",
   "bugs": "https://github.com/javadbat/jb-validation/issues",
   "license": "MIT",
   "files": [
