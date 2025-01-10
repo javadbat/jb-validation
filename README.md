@@ -1,6 +1,6 @@
 # JBValidation
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-validation-input/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-validation-input/main/LICENSE)
 [![NPM Downloads](https://img.shields.io/npm/dw/jb-validation)](https://www.npmjs.com/package/jb-validation)
 
 standard validation module that enables you to implement high interactive
@@ -211,6 +211,6 @@ after that just pas some callbacks function that jb-validation need to interact 
 
 - see [jb-form](https://github.com/javadbat/jb-form) if you want to manage a group of inputs with jb-validation integrated component.
 
-- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/master/docs/component-list.md) for more components
+- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/main/docs/component-list.md) for more components
 
-- use [Contribution Guide](https://github.com/javadbat/design-system/blob/master/docs/contribution-guide.md) if you want to contribute in this component.
+- use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute in this component.
