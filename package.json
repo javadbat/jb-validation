@@ -22,7 +22,7 @@
   ],
   "main": "index.js",
   "type": "module",
-  "types": "./dist/modules/jb-validation/lib/jb-validation.d.ts",
+  "types": "./dist/web-component/jb-validation/lib/jb-validation.d.ts",
   "repository": {
 		"type": "git",
 		"url": "git@github.com:javadbat/jb-validation.git"
