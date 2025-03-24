@@ -9,9 +9,10 @@
     "jb",
     "jb-validation",
     "validation",
+    "web-component validation",
     "validation helper"
   ],
-  "version": "0.2.0",
+  "version": "0.3.0",
   "bugs": "https://github.com/javadbat/jb-validation/issues",
   "license": "MIT",
   "files": [
