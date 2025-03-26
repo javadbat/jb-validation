@@ -12,7 +12,7 @@
     "web-component validation",
     "validation helper"
   ],
-  "version": "0.3.0",
+  "version": "0.4.0",
   "bugs": "https://github.com/javadbat/jb-validation/issues",
   "license": "MIT",
   "files": [

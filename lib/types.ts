@@ -29,9 +29,15 @@ export type ValidatorFunction<ValidationValue> = (value: ValidationValue) => boo
 //TValue will be different for some inputs like date input
 export type ValidationItem<ValidationValue> = {
   /**
+   * @property key that will be used to identify validation item
+  */
+  key?: any;
+  /**
    * @property validation function or regex to match value with
+   * @description if you want to use async validation you can return promise from validator function
+   * @description if you leave it empty (undefined) it will always considered as invalid (used for manual error handler like server side validation or yup , zod,... validations)
    */
-  validator: RegExp | ValidatorFunction<ValidationValue>;
+  validator?: RegExp | ValidatorFunction<ValidationValue>;
   /**
 * @property error message that will be shown if validator return false or regex failed
 */
@@ -45,7 +51,7 @@ export type ValidationItem<ValidationValue> = {
    */
   defer?: boolean
 }
-export type checkValidityInput<ValidationValue> = {
+export type checkValidityParameters<ValidationValue> = {
   /**
    * @property showError determine if you want to show error in invalidate state or not. default is true
    */
@@ -58,19 +64,6 @@ export type checkValidityInput<ValidationValue> = {
 //Error showing and clearing mechanism types
 export type ShowValidationErrorParameters = {
   message: string,
-  /**
-   * @property normal error will be cleared after type or blur event, but with persist set to true error will not be cleared until clearValidationError called
-  */
- persist?: boolean
-}
-export type ClearValidationErrorParameters = {
-  /**
-   * @property clear persisted error (error that set with persist flag) if not set all errors will be cleared 
-  */
- clearPersist?: boolean
-}
-export type PersistedError= {
-  message:string
 }
 //callbacks
 export type ShowValidationErrorCallback = (error: ShowValidationErrorParameters) => void;

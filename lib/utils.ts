@@ -92,6 +92,9 @@ export function checkValidation<ValidationValue>(value: ValidationValue, validat
     testRes = res.isValid;
     message = res.message ?? message;
   }
+  if(validation.validator === undefined){
+    testRes = false;
+  }
   if (!testRes) {
     return {
       isValid: false,

@@ -1,4 +1,4 @@
-import { ValidationItem, ValidationResult, ValidationResultSummary, GetValidationsCallback, Callbacks, CallbacksInput, checkValidityInput } from "./types";
+import { ValidationItem, ValidationResult, ValidationResultSummary, GetValidationsCallback, Callbacks, CallbacksInput, checkValidityParameters } from "./types";
 import { checkValueValidationSync, checkValueValidationAsync } from "./utils.js";
 
 export class ValidationHelper<ValidationValue> {
@@ -14,7 +14,9 @@ export class ValidationHelper<ValidationValue> {
   result: ValidationResult<ValidationValue> | null = null;
   #callbacks: Callbacks<ValidationValue> = {
     clearValidationError: [],
-    getValue: () => null,
+    getValue: ():null => {
+      return null;
+    },
     getValidations: [],
     getValueString: () => "",
     setValidationResult: [],
@@ -29,14 +31,14 @@ export class ValidationHelper<ValidationValue> {
   }
   setCallbacks(callbacks: CallbacksInput<ValidationValue>) {
     const keys = Object.keys(callbacks) as unknown as (keyof CallbacksInput<ValidationValue>)[];
-    keys.forEach((key) => {
+    //extract callbacks name and push the to module callbacks list
+    keys.forEach((key: keyof CallbacksInput<ValidationValue>) => {
       if (typeof callbacks[key] == "function" && this.#callbacks[key] !== undefined) {
         if (Array.isArray(this.#callbacks[key])) {
           //@ts-ignore
-          this.#callbacks[key].push(callbacks[key]);
+          (this.#callbacks[key]).push(callbacks[key]);
         } else {
-          //@ts-ignore
-          this.#callbacks[key] = callbacks[key];
+          this.#callbacks[key] = callbacks[key] as any;
         }
       }
     });
@@ -52,18 +54,18 @@ export class ValidationHelper<ValidationValue> {
   /**
    * @description check if input validation list is fulfilled or not
    */
-  async checkValidity(input?: checkValidityInput<ValidationValue>): Promise<ValidationResult<ValidationValue>> {
+  async checkValidity(parameters?: checkValidityParameters<ValidationValue>): Promise<ValidationResult<ValidationValue>> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
-    const inputValue = input?.value || await Promise.resolve(this.#callbacks.getValue());
+    const inputValue = parameters?.value || await Promise.resolve(this.#callbacks.getValue());
     const validationResult = await this.#checkValueValidation(inputValue);
-    this.#doCheckValidationAction(validationResult,input);
+    this.#doCheckValidationAction(validationResult,parameters);
     return validationResult;
   }
   /**
  * @description check if input validation list is fulfilled or not but will ignore async validations callbacks.
  */
-  checkValiditySync(input?: checkValidityInput<ValidationValue>): ValidationResult<ValidationValue> {
+  checkValiditySync(input?: checkValidityParameters<ValidationValue>): ValidationResult<ValidationValue> {
     // this method is for use out of component  for example if user click on submit button and developer want to check if all fields are valid
     //takeAction determine if we want to show user error in web component default Manner or developer will handle it by himself
     const inputValue = input?.value || this.#callbacks.getValue() as ValidationValue;
@@ -71,7 +73,7 @@ export class ValidationHelper<ValidationValue> {
     this.#doCheckValidationAction(validationResult,input);
     return validationResult;
   }
-  #doCheckValidationAction(validationResult: ValidationResult<ValidationValue>, input?: checkValidityInput<ValidationValue>) {
+  #doCheckValidationAction(validationResult: ValidationResult<ValidationValue>, input?: checkValidityParameters<ValidationValue>) {
     this.#resultSummary = {
       isValid: validationResult.isAllValid,
       message: null,

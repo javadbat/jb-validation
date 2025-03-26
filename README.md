@@ -200,6 +200,16 @@ component.validation.list = [{
 ```
 remember all async validator will be executed after sync one and deferred validation will only execute when all non-deferred one were valid. so if you want your async validator does not execute until all other validator passes, set `defer:true` so it will execute when all other validation is passed.
 
+### undefined validator
+
+if you leave validator undefined it means value is always `invalid` this could help you when you want to show error message base on a external reason (server side error or to showing other validation libraries error).
+
+```js
+component.validation.list = [{
+  message:'server cant respond now',
+}]
+```
+
 ## implement in new a web-component
 
 if you have a web-component and you want to ad jb-validation support to it you just have to create a instance of `ValidationHelper` in your component.    
