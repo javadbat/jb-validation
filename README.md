@@ -221,6 +221,6 @@ after that just pas some callbacks function that jb-validation need to interact 
 
 - see [jb-form](https://github.com/javadbat/jb-form) if you want to manage a group of inputs with jb-validation integrated component.
 
-- see [All JB Design system Component List](https://github.com/javadbat/design-system/blob/main/docs/component-list.md) for more components
+- see [All JB Design system Component List](https://javadbat.github.io/design-system/) for more components
 
 - use [Contribution Guide](https://github.com/javadbat/design-system/blob/main/docs/contribution-guide.md) if you want to contribute in this component.
