@@ -16,7 +16,7 @@ validation web-components and framework components with zero effort.
 
 ## installation
 
-```bash
+```sh
 npm install jb-validation
 ```
 ## Architecture
