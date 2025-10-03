@@ -6,7 +6,7 @@ export interface WithValidation<TValidationValue = any> {
   readonly validation: ValidationHelper<TValidationValue>,
   required: boolean,
   validationMessage: string
-  showValidationError: ShowValidationErrorCallback | ((error: string) => void),
+  #getInsideValidationsCallback: ShowValidationErrorCallback | ((error: string) => void),
   clearValidationError: ClearValidationErrorCallback,
   checkValidity: () => boolean
   reportValidity: () => boolean

@@ -6,13 +6,13 @@
 standard validation module that enables you to implement high interactive
 validation web-components and framework components with zero effort.
 
-- modular so it can be used anywhere.
-- support regex & custom validation function.
-- reactive and customizable.
-- support async validations.
-- fast & reliable
-- integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero
-  config form with highly customizable validation methods
+- Modular so it can be used anywhere.
+- Support regex & custom validation function.
+- Reactive and customizable.
+- Support async validations.
+- Fast & reliable
+- Integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero
+- Config form with highly customizable validation methods
 
 ## installation
 
