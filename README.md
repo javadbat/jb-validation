@@ -10,9 +10,9 @@ validation web-components and framework components with zero effort.
 - Support regex & custom validation function.
 - Reactive and customizable.
 - Support async validations.
-- Fast & reliable
-- Integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero
-- Config form with highly customizable validation methods
+- Fast & reliable.
+- Integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero.
+- Config form with highly customizable validation methods.
 
 ## installation
 

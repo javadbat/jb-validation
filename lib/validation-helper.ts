@@ -1,4 +1,4 @@
-import { ValidationItem, ValidationResult, ValidationResultSummary, GetValidationsCallback, Callbacks, CallbacksInput, checkValidityParameters } from "./types";
+import type { ValidationItem, ValidationResult, ValidationResultSummary, GetValidationsCallback, Callbacks, CallbacksInput, checkValidityParameters } from "./types";
 import { checkValueValidationSync, checkValueValidationAsync } from "./utils.js";
 
 export class ValidationHelper<ValidationValue> {
@@ -84,15 +84,15 @@ export class ValidationHelper<ValidationValue> {
       )!;
       this.resultSummary.message = firstFault.message;
       if (input?.showError !== false) {
-        this.#callbacks.showValidationError.forEach(fn => fn({ message: firstFault.message! }));
+        this.#callbacks.showValidationError.forEach(fn =>{ fn({ message: firstFault.message! })});
       }
     } else {
       //if all thing were valid
-      this.#callbacks.clearValidationError.forEach(fn => fn());
+      this.#callbacks.clearValidationError.forEach(fn => {fn()});
     }
     this.result = validationResult;
     //set result for 
-    this.#callbacks.setValidationResult.forEach(fn => fn(validationResult));
+    this.#callbacks.setValidationResult.forEach(fn => {fn(validationResult)});
   }
   /**
    * @description this function will register a function as validation getter sp on each validation check it will call getter function and check it's returned validation
