@@ -1,11 +1,11 @@
-import { type ValidationHelper } from "./validation-helper";
+import type { ValidationHelper } from "./validation-helper";
 
 //all web component that has validation will implements this interface
 export interface WithValidation<TValidationValue = any> {
   readonly isAutoValidationDisabled: boolean,
   readonly validation: ValidationHelper<TValidationValue>,
   required: boolean,
-  validationMessage: string
+  validationMessage: string | null,
   clearValidationError: ClearValidationErrorCallback,
   checkValidity: () => boolean
   reportValidity: () => boolean
