@@ -20,7 +20,7 @@ export async function checkValueValidationAsync<ValidationValue>(list: Validatio
   const {syncValidationResult:result,asyncList} = checkValueValidation(list,value,getValueString);
   for(const item of asyncList){
     const res = await item;
-    result.isAllValid = result.isAllValid && res.isValid;
+    result.isAllValid = result.isAllValid && !!res.isValid;
     result.validationList.push(res);
   }
   return result;
@@ -67,7 +67,7 @@ export function checkValueValidation<ValidationValue>(list: ValidationItem<Valid
  * @description check single validation item
  */
 export function checkValidation<ValidationValue>(value: ValidationValue, validation: ValidationItem<ValidationValue>, getValueString: GetValueStringCallback<ValidationValue>): Promise<ValidationResultItem<ValidationValue>> | ValidationResultItem<ValidationValue> {
-  let testRes: boolean;
+  let testRes: boolean = true;
   let message = validation.message;
   if (validation.validator instanceof RegExp) {
     const text = typeof value == "string" ? value : getValueString(value);
@@ -109,7 +109,7 @@ export function checkValidation<ValidationValue>(value: ValidationValue, validat
   };
 }
 
-type checkValidatorFunctionRes = { isValid: boolean, message: string }
+type checkValidatorFunctionRes = { isValid: boolean, message: string | null }
 /**
  * 
  * @param validator validator function

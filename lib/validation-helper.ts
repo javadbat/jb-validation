@@ -14,8 +14,8 @@ export class ValidationHelper<ValidationValue> {
   result: ValidationResult<ValidationValue> | null = null;
   #callbacks: Callbacks<ValidationValue> = {
     clearValidationError: [],
-    getValue: ():null => {
-      return null;
+    getValue: () => {
+      return null as ValidationValue;
     },
     getValidations: [],
     getValueString: () => "",
@@ -82,7 +82,7 @@ export class ValidationHelper<ValidationValue> {
       const firstFault = validationResult.validationList.find(
         (x) => !x.isValid
       )!;
-      this.resultSummary.message = firstFault.message;
+      this.#resultSummary.message = firstFault.message;
       if (input?.showError !== false) {
         this.#callbacks.showValidationError.forEach(fn =>{ fn({ message: firstFault.message! })});
       }
