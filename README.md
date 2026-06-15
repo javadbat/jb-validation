@@ -16,8 +16,7 @@ validation web-components and framework components with zero effort.
 - Integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero.
 - Config form with highly customizable validation methods.
 
-## installation
-
+## Installation
 ```sh
 npm install jb-validation
 ```
@@ -98,7 +97,7 @@ component.validation.addValidationListGetter(getValidations);
 ```
 
 in the second method getValidations will be called on each validation check so
-if you have a complex validation logic that may change base on your app states
+if you have a complex validation logic that may change based on your app states
 or component states it's better to use second way to make sure everything is
 controlled.\
 remember both way can be used together and you can even add multiple
@@ -109,7 +108,7 @@ remember both way can be used together and you can even add multiple
 validations in jb-validation follow this typescript type:
 
 ```typescript
-//ValidationValue will be different base on the implementor component
+//ValidationValue will be different based on the implementor component
 export type ValidatorFunction<ValidationValue> = (
   value: ValidationValue,
 ) => boolean | string | Promise<boolean | string>;
@@ -142,7 +141,7 @@ indicate which standard has been violated.
 function validator have many benefits one of them is that they may be defined in
 a scope that contain your app states and variables (like in react components or
 hooks or angular class). it means that you can access your own app variables and
-write a logic in your function base on your need. for example:
+write a logic in your function based on your need. for example:
 
 ```js
 function setValidations(validStudentList = []) {}
@@ -186,7 +185,7 @@ component.validation.list = [{
           } else {
             //invalid value with default message
             resolve(false);
-            //we dont support promise reject so please always resolve your promise. 
+            //we don't support promise reject so please always resolve your promise. 
           }
         } else {
             // valid value
@@ -204,7 +203,7 @@ remember all async validator will be executed after sync one and deferred valida
 
 ### undefined validator
 
-if you leave validator undefined it means value is always `invalid` this could help you when you want to show error message base on a external reason (server side error or to showing other validation libraries error).
+if you leave validator undefined it means value is always `invalid` this could help you when you want to show error message based on a external reason (server side error or to showing other validation libraries error).
 
 ```js
 component.validation.list = [{
@@ -219,8 +218,7 @@ after that just pas some callbacks function that jb-validation need to interact 
 ```js
 ```
 
-## Other Related Docs:
-
+## Related Docs
 - see [jb-form](https://github.com/javadbat/jb-form) if you want to manage a group of inputs with jb-validation integrated component.
 
 - see [All JB Design system Component List](https://javadbat.github.io/design-system/) for more components
