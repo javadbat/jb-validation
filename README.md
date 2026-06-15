@@ -1,7 +1,9 @@
 # JBValidation
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-validation-input/main/LICENSE)
-[![NPM Downloads](https://img.shields.io/npm/dw/jb-validation)](https://www.npmjs.com/package/jb-validation)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/jb-validation)
+[![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/javadbat/jb-validation/main/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/jb-validation)](https://www.npmjs.com/package/jb-validation)
+![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-validation)
 
 standard validation module that enables you to implement high interactive
 validation web-components and framework components with zero effort.
