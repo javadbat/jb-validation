@@ -1,4 +1,4 @@
-import { GetValueStringCallback, ValidationItem, ValidationResult, ValidationResultItem, ValidatorFunction } from "./types";
+import type { GetValueStringCallback, ValidationItem, ValidationResult, ValidationResultItem, ValidatorFunction } from "./types";
 
 /**
  * @description check sync validations of value  (will ignore async validations)
@@ -83,7 +83,7 @@ export function checkValidation<ValidationValue>(value: ValidationValue, validat
         res.then((promRes) => {
           resolve({
             isValid: promRes.isValid,
-            message: promRes.message,
+            message: typeof promRes.message == "string"? promRes.message : validation.message,
             validation
           });
         });

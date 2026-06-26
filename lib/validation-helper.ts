@@ -30,15 +30,20 @@ export class ValidationHelper<ValidationValue> {
     this.setCallbacks(callbacks);
   }
   setCallbacks(callbacks: CallbacksInput<ValidationValue>) {
-    const keys = Object.keys(callbacks) as unknown as (keyof CallbacksInput<ValidationValue>)[];
+    type CallbackKey = keyof CallbacksInput<ValidationValue>;
+    type CallbackInput = NonNullable<CallbacksInput<ValidationValue>[CallbackKey]>;
+    type CallbackBucket = CallbackInput | CallbackInput[];
+    const registeredCallbacks = this.#callbacks as Record<CallbackKey, CallbackBucket>;
+    const keys = Object.keys(callbacks) as CallbackKey[];
     //extract callbacks name and push the to module callbacks list
-    keys.forEach((key: keyof CallbacksInput<ValidationValue>) => {
-      if (typeof callbacks[key] == "function" && this.#callbacks[key] !== undefined) {
-        if (Array.isArray(this.#callbacks[key])) {
-          //@ts-ignore
-          (this.#callbacks[key]).push(callbacks[key]);
+    keys.forEach((key) => {
+      const callback = callbacks[key] as CallbackInput | undefined;
+      const registeredCallback = registeredCallbacks[key];
+      if (typeof callback == "function" && registeredCallback !== undefined) {
+        if (Array.isArray(registeredCallback)) {
+          registeredCallback.push(callback);
         } else {
-          this.#callbacks[key] = callbacks[key] as any;
+          registeredCallbacks[key] = callback;
         }
       }
     });
@@ -73,6 +78,9 @@ export class ValidationHelper<ValidationValue> {
     this.#doCheckValidationAction(validationResult,input);
     return validationResult;
   }
+  /**
+   * get validation result and user action config and Act base on result and config.
+   */
   #doCheckValidationAction(validationResult: ValidationResult<ValidationValue>, input?: checkValidityParameters<ValidationValue>) {
     this.#resultSummary = {
       isValid: validationResult.isAllValid,
