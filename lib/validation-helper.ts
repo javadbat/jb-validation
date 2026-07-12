@@ -12,6 +12,17 @@ export class ValidationHelper<ValidationValue> {
     return this.#resultSummary;
   }
   result: ValidationResult<ValidationValue> | null = null;
+  /**
+   * Clear the last validation result and any displayed validation error.
+   */
+  reset() {
+    this.result = null;
+    this.#resultSummary = {
+      isValid: null,
+      message: null,
+    };
+    this.#callbacks.clearValidationError.forEach(fn => { fn() });
+  }
   #callbacks: Callbacks<ValidationValue> = {
     clearValidationError: [],
     getValue: () => {
