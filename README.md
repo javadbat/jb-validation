@@ -6,23 +6,35 @@
 ![GitHub Created At](https://img.shields.io/github/created-at/javadbat/jb-validation)
 
 standard validation module that enables you to implement high interactive
-validation web-components and framework components with zero effort.
+validation web-components and framework components with zero effort. Try the [interactive validation demos](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation).
 
-- Modular so it can be used anywhere.
-- Support regex & custom validation function.
-- Reactive and customizable.
-- Support async validations.
+- Modular so it can be used anywhere. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation)
+- Support regex & custom validation function. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation)
+- Reactive and customizable. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--dynamic-validation-getter)
+- Support async validations. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--async-validation)
 - Fast & reliable.
-- Integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero.
+- Integrate with [jb-form](https://github.com/javadbat/jb-form) to make zero. [Validation demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--manual-error)
 - Config form with highly customizable validation methods.
 
 ## Installation
 ```sh
 npm install jb-validation
 ```
+
+## React
+
+`jb-validation` is framework-agnostic and does not ship a separate React wrapper. Import `ValidationHelper` from `jb-validation` in a hook or service and connect its callbacks to component state. The [interactive demos](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation) show the same API used from a React story.
+
+## Demo
+
+- [Synchronous validation](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation)
+- [Async and deferred validation](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--async-validation)
+- [Dynamic validation getter](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--dynamic-validation-getter)
+- [Manual/server error](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--manual-error)
+- [Reset validation state](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--reset)
 ## Architecture
 
-jb-validation is a universal validation module that let you simplify validations process.   
+jb-validation is a universal validation module that let you simplify validations process. [Architecture demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation)
 to achieve our goal we make jb-validation **Async** first mean checkValidation return `Promise` by default, despite all your validations were sync or not.  
 in `90%` of front-end use cases we just need sync Validation in our component or in our apps so we recommend you to use sync methods for your default useCases in front-end components and add some async methods beside them for more complex use cases. but in other scenario like web-services and etc please use `Async` first approach.    
 
@@ -48,7 +60,7 @@ in every web-component that support jb-validation as a validation method you
 must follow 3 step 1- provide a validation list(contain validator and message)\
 2- call check validation method\
 3- check the result
-its easy and straight forward like the example:
+its easy and straight forward like the [synchronous validation example](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation):
 
 ```js
 component.validation.list = [
@@ -96,8 +108,7 @@ const getValidations = () => {
 component.validation.addValidationListGetter(getValidations);
 ```
 
-in the second method getValidations will be called on each validation check so
-if you have a complex validation logic that may change based on your app states
+in the second method `getValidations` is called on each validation check; see the [dynamic getter demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--dynamic-validation-getter). If you have complex validation logic that may change based on your app states
 or component states it's better to use second way to make sure everything is
 controlled.\
 remember both way can be used together and you can even add multiple
@@ -138,6 +149,8 @@ indicate which standard has been violated.
 
 ### function validator
 
+Use a function when validation depends on application state or needs a custom message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--dynamic-validation-getter)
+
 function validator have many benefits one of them is that they may be defined in
 a scope that contain your app states and variables (like in react components or
 hooks or angular class). it means that you can access your own app variables and
@@ -169,6 +182,8 @@ component.validation.list = [{
 ```
 
 ### async validator
+
+Return a promise for server checks or expensive validation and use `defer: true` when it should run only after synchronous rules pass. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--async-validation)
 
 you can also set async validator function to check validation with your server or doing heavy search. to achieve this you just have to return promise in your validator function.
 
@@ -203,6 +218,8 @@ remember all async validator will be executed after sync one and deferred valida
 
 ### undefined validator
 
+Leave `validator` undefined to represent a manual or server-side error. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--manual-error)
+
 if you leave validator undefined it means value is always `invalid` this could help you when you want to show error message based on a external reason (server side error or to showing other validation libraries error).
 
 ```js
@@ -213,10 +230,27 @@ component.validation.list = [{
 
 ## implement in new a web-component
 
-if you have a web-component and you want to ad jb-validation support to it you just have to create a instance of `ValidationHelper` in your component.    
+if you have a web-component and you want to ad jb-validation support to it you just have to create a instance of `ValidationHelper` in your component. See the [validation demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation) for the complete interaction.
 after that just pas some callbacks function that jb-validation need to interact with your component and then you will have the validation support into your web-component.
 ```js
 ```
+
+## API reference
+
+`ValidationHelper` is framework-agnostic and can be used directly from React, Vue, Angular, or a custom element. The [interactive examples](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation) use the same public API.
+
+| member | type | description |
+| --- | --- | --- |
+| `list` | `ValidationItem[]` | Explicit validation rules. Assigning a list immediately starts a silent validation pass. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation) |
+| `result` | `ValidationResult \| null` | Most recent full validation result. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--async-validation) |
+| `resultSummary` | `{ isValid: boolean \| null; message: string \| null }` | Compact status and first error message. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--manual-error) |
+| `checkValidity(parameters?)` | `Promise<ValidationResult>` | Runs synchronous and asynchronous rules. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--async-validation) |
+| `checkValiditySync(parameters?)` | `ValidationResult` | Runs only synchronous rules. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation) |
+| `addValidationListGetter(getter)` | `void` | Adds rules generated at validation time. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--dynamic-validation-getter) |
+| `setCallbacks(callbacks)` | `void` | Registers value, result, and error-display callbacks. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--sync-validation) |
+| `reset()` | `void` | Clears the last result, summary, and displayed error. [Demo](https://javadbat.github.io/design-system/?path=/story/components-jbvalidation--reset) |
+
+Set `showError: false` when the caller wants to inspect a result without displaying the first validation message. Pass `value` to validate a value other than the callback-provided current value.
 
 ## Related Docs
 - see [jb-form](https://github.com/javadbat/jb-form) if you want to manage a group of inputs with jb-validation integrated component.
