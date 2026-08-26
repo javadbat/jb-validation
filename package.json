@@ -33,6 +33,6 @@
   },
   "repository": {
 		"type": "git",
-		"url": "git@github.com:javadbat/jb-validation.git"
+		"url": "https://github.com/javadbat/jb-validation.git"
   }
 }
