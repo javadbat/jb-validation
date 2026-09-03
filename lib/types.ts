@@ -5,6 +5,7 @@ export interface WithValidation<TValidationValue = any> {
   readonly isAutoValidationDisabled: boolean,
   readonly validation: ValidationHelper<TValidationValue>,
   required: boolean,
+  readonly validity: ValidityState | undefined,
   validationMessage: string | null,
   clearValidationError: ClearValidationErrorCallback,
   checkValidity: () => boolean
